@@ -1,4 +1,5 @@
-var config = {
+// JavaScript source code
+var config = {	
 	width: 800,
 	height: 600,
 	backgroundColor: '#333333',
