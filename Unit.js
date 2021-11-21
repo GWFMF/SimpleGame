@@ -67,13 +67,16 @@ class Unit {//Define a unit prototype
     clickedOn(crntPlyr) {
         if (crntPlyr == this.owner) {
             if (this.isSelected) {
-                console.log('Unselected this unit at ' + this.xPos + ',' + this.yPos)
+                console.log('Unit #' + this.ID + ' Unselected');
                 this.isSelected = false;
             }
             else {
-                console.log('Selected this unit at ' + this.xPos + ',' + this.yPos)
+                console.log('Unit #' + this.ID + ' Selected');
                 this.isSelected = true;
             }
+        }
+        else {
+            console.log('Unit #' + this.ID +' is not this players unit');
         }
     }
 
@@ -82,7 +85,7 @@ class Unit {//Define a unit prototype
         while (this.health > 0 & attackingUnit.health > 0) {
             this.health = this.health - 1;
             attackingUnit.health = attackingUnit.health - 2;
-            console.log('Attacking unit health: ' + attackingUnit.health + 'Defending unit health: ' + this.health);
+            console.log('Attacking unit #' + attackingUnit.ID + ' health: ' + attackingUnit.health + ', defending unit #' + this.ID + ' health: ' + this.health);
         }
         if (this.health <= 0) {
             this.distroy();
@@ -93,12 +96,14 @@ class Unit {//Define a unit prototype
     }
 
     distroy() {
-        console.log(this + 'Distroyed');
+        console.log('Unit #' + this.ID + 'Distroyed (owned by player' + this.owner + ')');
         this.obj.disableBody(true, true);//Need to look into docs, there is probably a distroy function.
+        //this.obj.distroy();
         this.isSelected = false;
         //This is jank coding, but for now move the game object offscreen and somewhere it will never collide with another unit
-        this.xPos = -5000 * this.ID;
-        this.yPos = -5000 * this.ID;
+        //Will need to properly deregister this unit from all the lists and stuff that check for collisions, probably in some map object.
+        this.xPos = -5000 * (this.ID+1);
+        this.yPos = -5000 * (this.ID+1);
     }
     
 }

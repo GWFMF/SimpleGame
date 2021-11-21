@@ -14,7 +14,7 @@
 //Will want to load unitData from a json file (later to be pushed out by the server), but for now just hardcoding an Unit array
 var unitData = [new Unit(30, 30, 10, 1, 0),
     new Unit(200, 200, 10, 0, 1),
-    new Unit(200, 500, 10, 0, 2)];
+    new Unit(200, 500, 15, 0, 2)];
 
 //Will have to pass this from the server after some login system.
 var CurrentPlayer = 0;
