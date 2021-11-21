@@ -7,7 +7,7 @@
 
 /*In Index.html:
  * Loading the .json (maybe not the most important thing, sockets might have a better way to update info)
- * Loading the definition of the Unit Class which holds all the actual units on the board.
+ * Loading the definition of the Unit Class (Unit.js) which holds all the actual units on the board.
  */ 
 
 

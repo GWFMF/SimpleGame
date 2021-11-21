@@ -95,6 +95,10 @@ class Unit {//Define a unit prototype
     distroy() {
         console.log(this + 'Distroyed');
         this.obj.disableBody(true, true);//Need to look into docs, there is probably a distroy function.
+        this.isSelected = false;
+        //This is jank coding, but for now move the game object offscreen and somewhere it will never collide with another unit
+        this.xPos = -5000 * this.ID;
+        this.yPos = -5000 * this.ID;
     }
     
 }
