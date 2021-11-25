@@ -8,8 +8,13 @@
 /*In Index.html:
  * Loading the .json (maybe not the most important thing, sockets might have a better way to update info)
  * Loading the definition of the Unit Class (Unit.js) which holds all the actual units on the board.
- */ 
+ */
 
+//const data = require('./UnitData.json');
+//console.log(data);
+//import unitDataFile from 'UnitData.json';
+
+//unitData = [new Unit(unitDataFile.unitData[0].xPos, unitDataFile.unitData[0].yPos, unitDataFile.unitData[0].health, 1, 0)];
 
 //Will want to load unitData from a json file (later to be pushed out by the server), but for now just hardcoding an Unit array
 var unitData = [new Unit(30, 30, 10, 1, 0),
