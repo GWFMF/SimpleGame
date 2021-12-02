@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Unit from './Unit';
+import Map from './Map';
 import unitDataFile from './assets/UnitData.json';
 
 const unitData = [
@@ -85,4 +86,5 @@ const config = {
 	},
 };
 
-const game = new Phaser.Game(config);
+//const game = new Phaser.Game(config);
+//const game = new Phaser.Game(configMap);
