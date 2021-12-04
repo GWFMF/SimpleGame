@@ -2,14 +2,16 @@
 export default class Unit {
 	//Define a unit prototype
 	constructor(x, y, h, plyrNum, idnum) {
-		this.xPos = x;
-		this.yPos = y;
+		this.gridPosX = x;
+		this.gridPosY = x;
+		this.xPos = x*32;
+		this.yPos = y*32;
 		this.health = h;
 		this.speed = 1;
 		this.isSelected = false;
 		this.owner = plyrNum;
-		this.goingToX = x; //Later replace with an array of positions the unit is going to move through
-		this.goingToY = y;
+		this.goingToX = x*32; //Later replace with an array of positions the unit is going to move through
+		this.goingToY = y*32;
 		this.obj = null; //This holds the gameobject created when the sprite is drawn on the screen.
 		this.isMoving = false;
 		this.ID = idnum; // Maybe not needed
@@ -109,7 +111,7 @@ export default class Unit {
 		console.log(
 			'Unit #' + this.ID + 'Distroyed (owned by player' + this.owner + ')'
 		);
-		this.obj.disableBody(true, true); //Need to look into docs, there is probably a distroy function.
+		//this.obj.disableBody(true, true); //Need to look into docs, there is probably a distroy function.
 		//this.obj.distroy();
 		this.isSelected = false;
 		//This is jank coding, but for now move the game object offscreen and somewhere it will never collide with another unit
