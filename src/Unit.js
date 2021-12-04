@@ -131,5 +131,7 @@ export default class Unit {
 		//Will need to properly deregister this unit from all the lists and stuff that check for collisions, probably in some map object.
 		this.xPos = -5000 * (this.ID + 1);
 		this.yPos = -5000 * (this.ID + 1);
+		this.goingToY = yPos;
+		this.goingToX = xPos;
 	}
 }
