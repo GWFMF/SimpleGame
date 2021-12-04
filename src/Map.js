@@ -1,3 +1,9 @@
+export default class Map {
+	constructor(maxX,maxY,girdSize) {
+		unitPositions=[];
+	}
+}
+
 
 //import MapFile from './assets/BasicFirstMap.json';
 //import terrainTilesImport from './assets/sprites/pipo-map001_at.png';

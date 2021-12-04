@@ -2,20 +2,20 @@
 	"unitMetaData": [
 		{
 			"name": "Unit1",
-			"xPos": 50,
-			"yPos": 100,
+			"xPos": 5,
+			"yPos": 10,
 			"health": 10
 		},
 		{
 			"name": "Unit2",
-			"xPos": 100,
-			"yPos": 100,
+			"xPos": 10,
+			"yPos": 10,
 			"health": 10
 		},
 		{
 			"name": "Unit3",
-			"xPos": 200,
-			"yPos": 200,
+			"xPos": 15,
+			"yPos": 15,
 			"health": 15
 		}
 	]

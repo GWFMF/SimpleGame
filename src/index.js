@@ -3,25 +3,25 @@ import Unit from './Unit';
 import Map from './Map';
 import unitDataFile from './assets/UnitData.json';
 
-const unitData = [
+const unitData = [	
 	new Unit(
-		unitDataFile.unitData[0].xPos,
-		unitDataFile.unitData[0].yPos,
-		unitDataFile.unitData[0].health,
+		unitDataFile.unitMetaData[0].xPos,
+		unitDataFile.unitMetaData[0].yPos,
+		unitDataFile.unitMetaData[0].health,
 		1,
 		0
 	),
 	new Unit(
-		unitDataFile.unitData[1].xPos,
-		unitDataFile.unitData[1].yPos,
-		unitDataFile.unitData[1].health,
+		unitDataFile.unitMetaData[1].xPos,
+		unitDataFile.unitMetaData[1].yPos,
+		unitDataFile.unitMetaData[1].health,
 		0,
 		1
 	),
 	new Unit(
-		unitDataFile.unitData[2].xPos,
-		unitDataFile.unitData[2].yPos,
-		unitDataFile.unitData[2].health,
+		unitDataFile.unitMetaData[2].xPos,
+		unitDataFile.unitMetaData[2].yPos,
+		unitDataFile.unitMetaData[2].health,
 		0,
 		2
 	),
@@ -85,7 +85,8 @@ export default class MapScene extends Phaser.Scene {
         this.load.image('terrainTileLoad', './src/assets/sprites/4x4OfCellTiles.png');
         this.load.image('stuffToPutOnMap', './src/assets/sprites/BasicHouseTower.png');
         this.load.tilemapTiledJSON('map', './src/assets/RoughMap2.json');  
-		this.load.image('dude', './src/assets/sprites/Dude.png');      
+		this.load.image('dude', './src/assets/sprites/Dude.png');  
+		console.log(unitDataFile);    
     }
 
 	create() {
@@ -100,12 +101,13 @@ export default class MapScene extends Phaser.Scene {
       
         // Parameters: layer name from Tiled.json, tileset, x, y
         
-        const worldLayer = map.createLayer('terrainLayer', terrainTileset, 0, 0);
-        const aboveLayer = map.createLayer('buildingLayer', buildingTileset, 0, 0);  
+        const worldLayer = map.createLayer('terrainLayer', terrainTileset, 16, 16);
+        const aboveLayer = map.createLayer('buildingLayer', buildingTileset, 16, 16);  
         console.log('bootingMap');  
 
 		for (let i = 0; i < unitData.length; i++) {
-			unitData[i].obj = this.physics.add.image(unitData[i].xPos*32, unitData[i].yPos*32, 'dude').setInteractive();
+			//unitData[i].obj = this.physics.add.image(unitData[i].xPos*32, unitData[i].yPos*32, 'dude').setInteractive();
+			unitData[i].obj=this.add.image(unitData[i].xPos, unitData[i].yPos, 'dude').setInteractive();
 			//this.physics.add.sprite(x,y,key,frame);//Use this syntax if adding animation (sprites are just multiple frames of an image)
 			unitData[i].obj.on('pointerdown', function () {
 				unitData[i].clickedOn(CurrentPlayer);
@@ -113,15 +115,22 @@ export default class MapScene extends Phaser.Scene {
 		}
 
 		this.input.on('pointerup', function (pointer) {
+			//console.log('Workin?')
 			for (let i = 0; i < unitData.length; i++) {
 				if (unitData[i].isSelected) {
+					console.log('Workin!')
 					unitData[i].goTo(pointer.x, pointer.y);
 				}
 			}
 		});
 	}
 
-	update() {		
+	update() {	
+		for (let i = 0; i < unitData.length; i++) {
+			//There has to be a more efficent way of doing this than looping over every unit
+			//but I expect it will be done on the server side so maybe looping over all units wont be as computationally expensive.
+			unitData[i].move(unitData);
+		}	
 	}
 }
 
