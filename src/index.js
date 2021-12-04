@@ -33,6 +33,8 @@ const unitData = [
 let CurrentPlayer = 0;
 
 
+
+
 /*export class GamesUI extends Phaser.Scene {
 	constructor() {
 		super({
@@ -109,9 +111,10 @@ export default class MapScene extends Phaser.Scene {
         console.log(map);  
 
 		for (let i = 0; i < unitData.length; i++) {
-			//unitData[i].obj = this.physics.add.image(unitData[i].xPos*32, unitData[i].yPos*32, 'dude').setInteractive();
-			unitData[i].obj=this.add.image(unitData[i].xPos, unitData[i].yPos, 'dude').setInteractive();
-			//this.physics.add.sprite(x,y,key,frame);//Use this syntax if adding animation (sprites are just multiple frames of an image)
+			//Spawn in each unit into the scene and set the player colours.
+			unitData[i].obj=this.add.sprite(unitData[i].xPos, unitData[i].yPos, 'dude').setInteractive();
+			unitData[i].obj.setTint(unitData[i].colourID);
+			
 			unitData[i].obj.on('pointerdown', function () {
 				unitData[i].clickedOn(CurrentPlayer);
 			});

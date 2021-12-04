@@ -1,6 +1,7 @@
 // JavaScript source code
 export default class Unit {
 	//Define a unit prototype
+	
 	constructor(x, y, h, plyrNum, idnum) {
 		this.gridPosX = x;
 		this.gridPosY = x;
@@ -15,6 +16,18 @@ export default class Unit {
 		this.obj = null; //This holds the gameobject created when the sprite is drawn on the screen.
 		this.isMoving = false;
 		this.ID = idnum; // Maybe not needed
+		switch (plyrNum){
+			case 0: 
+				this.colourID = 0x0000ff;
+			break;
+			case 1:
+				this.colourID = 0xff0000;
+			break;
+			case 2:
+				this.colourID = 0x00ff00;
+			break;
+
+		}
 	}
 	//Setup a function that will reassign the new coordiance (later with pathfinding it will be something else)
 	goTo(x, y) {
