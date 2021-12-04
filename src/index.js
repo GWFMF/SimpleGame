@@ -29,27 +29,29 @@ const unitData = [
 
 let CurrentPlayer = 0;
 
-export default class GamesUI extends Phaser.Scene {
+
+/*export class GamesUI extends Phaser.Scene {
 	constructor() {
-		super();
+		super({
+			//key: "Jazz"
+		});
 	}
 
 	preload() {
 		// this.load.image('logo', logoImg);
-		this.load.image(
-			'dude',
-			'http://labs.phaser.io/assets/sprites/orange-cat1.png'
-		);
+		//this.load.image(
+		//	'dude',
+		//	'http://labs.phaser.io/assets/sprites/orange-cat1.png'
+		//);
+		this.load.image('dude', './src/assets/sprites/Dude.png');
 		// this.load.text('unitDataFile', './assets/UnitData.json');
 	}
 
 	create() {
-		this.physics.world.setBoundsCollision(true, true, true, true); //Not really needed, but this makes the edges of the canvas rigid bodies
+		//this.physics.world.setBoundsCollision(true, true, true, true); //Not really needed, but this makes the edges of the canvas rigid bodies
 
 		for (let i = 0; i < unitData.length; i++) {
-			unitData[i].obj = this.physics.add
-				.image(unitData[i].xPos, unitData[i].yPos, 'dude')
-				.setInteractive();
+			unitData[i].obj = this.physics.add.image(unitData[i].xPos*32, unitData[i].yPos*32, 'dude').setInteractive();
 			//this.physics.add.sprite(x,y,key,frame);//Use this syntax if adding animation (sprites are just multiple frames of an image)
 			unitData[i].obj.on('pointerdown', function () {
 				unitData[i].clickedOn(CurrentPlayer);
@@ -72,6 +74,55 @@ export default class GamesUI extends Phaser.Scene {
 			unitData[i].move(unitData);
 		}
 	}
+}*/
+
+export default class MapScene extends Phaser.Scene {
+	constructor() {
+		super();
+	}
+
+	preload() {
+        this.load.image('terrainTileLoad', './src/assets/sprites/4x4OfCellTiles.png');
+        this.load.image('stuffToPutOnMap', './src/assets/sprites/BasicHouseTower.png');
+        this.load.tilemapTiledJSON('map', './src/assets/RoughMap2.json');  
+		this.load.image('dude', './src/assets/sprites/Dude.png');      
+    }
+
+	create() {
+        const map = this.make.tilemap({ key: 'map' });
+        //const map = this.make.tilemap(MapFile);
+  
+        // Parameters are the name you gave the tileset (not layer) in Tiled and then the key of the tileset image in
+        // Phaser's cache (i.e. the name you used in preload)
+        //const tileset = map.addTilesetImage("TileSetNameEmbededInMap.json", "key");
+        const terrainTileset = map.addTilesetImage('Crude32Tiles','terrainTileLoad');
+        const buildingTileset = map.addTilesetImage('CrudeTower', 'stuffToPutOnMap');
+      
+        // Parameters: layer name from Tiled.json, tileset, x, y
+        
+        const worldLayer = map.createLayer('terrainLayer', terrainTileset, 0, 0);
+        const aboveLayer = map.createLayer('buildingLayer', buildingTileset, 0, 0);  
+        console.log('bootingMap');  
+
+		for (let i = 0; i < unitData.length; i++) {
+			unitData[i].obj = this.physics.add.image(unitData[i].xPos*32, unitData[i].yPos*32, 'dude').setInteractive();
+			//this.physics.add.sprite(x,y,key,frame);//Use this syntax if adding animation (sprites are just multiple frames of an image)
+			unitData[i].obj.on('pointerdown', function () {
+				unitData[i].clickedOn(CurrentPlayer);
+			});
+		}
+
+		this.input.on('pointerup', function (pointer) {
+			for (let i = 0; i < unitData.length; i++) {
+				if (unitData[i].isSelected) {
+					unitData[i].goTo(pointer.x, pointer.y);
+				}
+			}
+		});
+	}
+
+	update() {		
+	}
 }
 
 const config = {
@@ -80,11 +131,12 @@ const config = {
 	height: 600,
 	pixelArt: true,
 	//parent: 'phaser-example',
-	scene: [GamesUI],
-	physics: {
+	scene: [MapScene],
+	//scene: [GamesUI],
+	/*physics: {
 		default: 'arcade',
-	},
+	},*/
 };
 
-//const game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 //const game = new Phaser.Game(configMap);
