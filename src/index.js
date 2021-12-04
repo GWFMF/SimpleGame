@@ -27,6 +27,9 @@ const unitData = [
 	),
 ];
 
+
+//mapData = new Map(30,20,32);
+
 let CurrentPlayer = 0;
 
 
@@ -86,7 +89,7 @@ export default class MapScene extends Phaser.Scene {
         this.load.image('stuffToPutOnMap', './src/assets/sprites/BasicHouseTower.png');
         this.load.tilemapTiledJSON('map', './src/assets/RoughMap2.json');  
 		this.load.image('dude', './src/assets/sprites/Dude.png');  
-		console.log(unitDataFile);    
+		//console.log(unitDataFile);    
     }
 
 	create() {
@@ -103,7 +106,7 @@ export default class MapScene extends Phaser.Scene {
         
         const worldLayer = map.createLayer('terrainLayer', terrainTileset, 16, 16);
         const aboveLayer = map.createLayer('buildingLayer', buildingTileset, 16, 16);  
-        console.log('bootingMap');  
+        console.log(map);  
 
 		for (let i = 0; i < unitData.length; i++) {
 			//unitData[i].obj = this.physics.add.image(unitData[i].xPos*32, unitData[i].yPos*32, 'dude').setInteractive();
@@ -116,10 +119,19 @@ export default class MapScene extends Phaser.Scene {
 
 		this.input.on('pointerup', function (pointer) {
 			//console.log('Workin?')
-			for (let i = 0; i < unitData.length; i++) {
-				if (unitData[i].isSelected) {
-					console.log('Workin!')
-					unitData[i].goTo(pointer.x, pointer.y);
+			var tile = worldLayer.getTileAtWorldXY(pointer.x,pointer.y);
+			//console.log(tile);
+			if (tile.properties.isMountain){
+				console.log("This is a mountain!")
+			}
+			else{			
+				for (let i = 0; i < unitData.length; i++) {
+					if (unitData[i].isSelected) {
+						//console.log('Workin!')					
+
+						unitData[i].goTo(tile.pixelX+32, tile.pixelY+32);
+
+					}
 				}
 			}
 		});
